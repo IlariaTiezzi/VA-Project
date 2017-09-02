@@ -1,0 +1,36 @@
+
+/* --- Text --- */
+
+.h1, h1 {
+    font-size: 25px;    
+}
+
+.h2, h2 {
+    font-size: 20px;
+    font-weight: normal;
+    text-align: center;
+}
+
+/* --- end Text --- */
+
+
+
+div#viz {
+    margin: 0 auto;
+    text-align: center;
+}
+
+.jumbotron h1 {	
+	margin-bottom: 40px;
+}
+
+.axis path, .axis line {
+	fill: none;
+	stroke: #CCC;
+	stroke-width: 1;
+	shape-rendering: crispEdges;
+}
+
+.axis text{
+  fill: #999;
+}

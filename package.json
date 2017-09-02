@@ -1,0 +1,26 @@
+{
+  "name": "va_project",
+  "version": "1.0.0",
+  "description": "Data Visualization and Visual Analytics for VAST Challenge 2015, Mini-Challenge 1",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/IlariaTiezzi/VA-Project.git"
+  },
+  "author": "Ilaria Tiezzi",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/IlariaTiezzi/VA-Project/issues"
+  },
+  "homepage": "https://github.com/IlariaTiezzi/VA-Project#readme",
+  "dependencies": {
+    "bootstrap": "^4.0.0-beta",
+    "d3": "^3.5.17",
+    "jquery": "^3.2.1",
+    "nvd3": "^1.8.6",
+    "popper.js": "^1.12.5"
+  }
+}

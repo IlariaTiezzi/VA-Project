@@ -1,28 +1,16 @@
 
-// Global variable of dataset
-//var dataset;
-
+//Global variables
 var margin = 80;
 var w = 700;
 var h = 700;
-var margin_min = 10;
-var w_min = 230;
-var h_min = 400;
 
+
+// Create a chart to see the size and position of the group of users in the park map
 d3.json("assets/data/we-groups.json", 
 
 	function(error, data) {
 		if (error) {console.log(error);} 
-
-		// Once loaded, copy to dataset
-		//dataset = data;
-
-		/*d3.select(".row").selectAll("p")
-			.data(data)
-			.enter()
-			.append("p")
-			.text(function(d){return d.x + ", " + d.y + ". Members: " + d.members;})*/
-
+		
 		// Create a SVG element inside the DIV with ID #viz
 		var svg = d3.select("#viz")
 			.append("svg")
@@ -43,13 +31,55 @@ d3.json("assets/data/we-groups.json",
 		    .attr("height", h)
 		    .attr("x", 0)
 		    .attr("y", 5)
-		    .attr("opacity", "0.5");
+		    .attr("opacity", "0.3");
 
 		// Create a rectangle with fill the park map
 		svg.append("rect")
 			.attr("width", w)
 			.attr("height", h)
-			.attr("fill", "url(#parkmap)");
+			.attr("fill", "url(#parkmap)");		
+		
+		//Add text to identify the name of the areas
+		var tundraland = svg.append("text")			
+			.attr("x", 150)
+			.attr("y", -10)						
+			.attr("class", "labelArea")
+			.text("Tundra Land");
+
+		var entrycorridor = svg.append("text")			
+			.attr("x", 380)
+			.attr("y", -10)						
+			.attr("class", "labelArea")
+			.text("Entry Corridor");
+
+		var kiddieland = svg.append("text")			
+			.attr("x", 550)
+			.attr("y", -10)						
+			.attr("class", "labelArea")
+			.text("Kiddie Land");
+
+		var wetland = svg.append("text")			
+			.attr("x", 370)
+			.attr("y", -710)
+			.attr("transform", "rotate(90)")						
+			.attr("class", "labelArea")
+			.text("Wet Land");
+
+		var lineWetland = svg.append("line")			
+			.attr("x1", 550)
+			.attr("y1", 400)
+			.attr("x2", 705)
+			.attr("y2", 400)
+			.attr("stroke", "#0192b5")						
+			.attr("stroke-width", 0.5);
+
+		var coasteralley = svg.append("text")			
+			.attr("x", 550)
+			.attr("y", -710)
+			.attr("transform", "rotate(90)")				
+			.attr("class", "labelArea")
+			.text("Coaster Alley");
+
 
 		// Create the scales considering the range of the data
 		var Xscale = d3.scale.linear()
@@ -119,8 +149,10 @@ d3.json("assets/data/we-groups.json",
 			.attr("x", function(d){return Xscale(d.x);})
 			.attr("y", function(d){return Yscale(d.y);})
 			.attr("dx", "20")
-			.attr("width", "110")
-			.attr("height", "80")
+			.attr("width", "120")
+			.attr("height", "70")
+			.attr("rx", 5)
+			.attr("ry", 5)
 			.style("fill", "#FFF")
 			.attr("stroke", "#666")
 			.attr("stroke-width", "1")
@@ -143,14 +175,14 @@ d3.json("assets/data/we-groups.json",
 		// Define the first line of text 
 		var textTspan1 = labelRect.append("tspan")			
 			.attr("x", function(d){return Xscale(d.x)+10;})
-			.attr("y", function(d){return Yscale(d.y)+30;})
-			.text(function(d,i){ return 'Group Id:' + i;})
+			.attr("y", function(d){return Yscale(d.y)+28;})
+			.text(function(d,i){ return 'Group Id: ' + i;})
 			.attr("font-weight", "bold");
 
 		// Define the second line of text
 		var textTspan2 = labelRect.append("tspan")			
 			.attr("x", function(d){return Xscale(d.x)+10;})
-			.attr("y", function(d){return Yscale(d.y)+50;})
+			.attr("y", function(d){return Yscale(d.y)+48;})
 			.text(function(d){return "Members: " + d.members });
 
 		// Define the event for the mouse over the circle
@@ -168,3 +200,67 @@ d3.json("assets/data/we-groups.json",
 		}
 	}	
 );
+
+
+// Create a multi bar charts  to display the number of members per area
+d3.json("assets/data/we-area.json", 
+
+	function(error, data) {
+		if (error) {console.log(error);} 
+
+		// Create a SVG element inside the DIV with ID #multibar		
+		var svg = d3.select("#multibar")
+			.append("svg")
+			.attr("height", 400)
+			.attr("style", "padding: 10px");
+		
+		// Set the name of the days
+		var setDay = function(d){
+			var day;
+			if (d.day === "06") { return day = "Friday";}
+			else if (d.day === "07") { return day = "Saturday";}
+			else { return day = "Sunday";}
+			return day;
+		}
+		
+		// Group values by day and area, then map the data of value for the new array
+		var dataset = d3.nest()
+			.key(function(d){return setDay(d);})
+			.key(function(d){return d.area;})
+			.rollup(function(v){return d3.sum(v,function(d){return d.members;});})
+			.entries(data)
+			.map(function(d){
+				return {
+					key: d.key,
+					values: d.values.map(function(p){return {x:p.key, y:p.values}})				
+				}
+			});  	
+
+  		// Create a multi bar charts for the dataset
+		nv.addGraph(function() {
+		    var chart = nv.models.multiBarChart()
+			      .duration(350)
+			      .reduceXTicks(true) 
+			      .rotateLabels(0)      
+			      .showControls(true)   
+			      .groupSpacing(0.1)
+			      .color(d3.scale.category20c().range());    
+		    
+		    chart.xAxis;
+
+		    chart.yAxis.tickFormat(d3.format('s')); 
+
+		    d3.select('#multibar svg')
+		        .datum(dataset)
+		        .call(chart);
+
+		    nv.utils.windowResize(chart.update);
+
+		    return chart;
+		});
+
+
+				
+	}	
+);
+

@@ -1,27 +1,41 @@
-
 /* --- Text --- */
 
 .h1, h1 {
-    font-size: 25px;    
+    font-size: 25px; 
+    margin-bottom: 40px;   
 }
 
 .h2, h2 {
+    margin-bottom: 40px;
     font-size: 20px;
     font-weight: normal;
     text-align: center;
 }
 
 /* --- end Text --- */
+/* --- main --- */
+body {
+    background-color: #F8F8F8;
+}
 
+.whitebox {
+    margin: 30px auto;
+    padding: 20px;
+    border: 1px solid #DDD;
+    background-color: #FFF;
+    box-shadow: 0px 2px 2px #666;
+    border-radius: 3px;
+    text-align: right;    
+}
 
-
+a .btn {
+    margin-top: 30px;
+}
+/* --- end main ---*/
+/* --- viz --- */
 div#viz {
     margin: 0 auto;
     text-align: center;
-}
-
-.jumbotron h1 {	
-	margin-bottom: 40px;
 }
 
 .axis path, .axis line {
@@ -34,3 +48,18 @@ div#viz {
 .axis text{
   fill: #999;
 }
+
+.labelArea {
+    fill: #0192b5;
+    text-anchor: left;
+    font-size: 12px;
+    font-family: sans-serif;
+    text-transform: uppercase; 
+}
+
+/* --- end viz --- */
+/* --- multibar --- */
+#multibar .tick text {
+    text-transform: uppercase;    
+}
+/*--- end multibar --- */

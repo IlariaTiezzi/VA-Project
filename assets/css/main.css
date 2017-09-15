@@ -32,21 +32,45 @@ a .btn {
     margin-top: 30px;
 }
 /* --- end main ---*/
+/* --- axis --- */
+.axis path, .axis line {
+    fill: none;
+    stroke: #CCC;
+    stroke-width: 1;
+    shape-rendering: crispEdges;
+}
+
+.axis text{
+  fill: #999;
+  font-family: sans-serif;
+  font-size: 11px;
+}
+/* --- end axis --- */
 /* --- viz --- */
 div#viz {
     margin: 0 auto;
     text-align: center;
 }
 
-.axis path, .axis line {
-	fill: none;
-	stroke: #CCC;
-	stroke-width: 1;
-	shape-rendering: crispEdges;
+#viz-tooltip {
+    position: absolute;
+    width: 100px;
+    height: auto;
+    padding: 10px;
+    background: #FFF;
+    border-radius: 5px;
+    box-shadow: 2px 2px 2px rgba(0,0,0,0.4);
 }
 
-.axis text{
-  fill: #999;
+#viz-tooltip.hidden {
+    display: none;
+}
+
+#viz-tooltip p {
+    margin: 0;
+    font-family: sans-serif;
+    font-size: 12px;
+    text-align: left;
 }
 
 .labelArea {
@@ -63,3 +87,34 @@ div#viz {
     text-transform: uppercase;    
 }
 /*--- end multibar --- */
+/* --- heatmap --- */
+div#heatmap {
+    margin: 0 auto;
+    text-align: center;
+}
+
+div#heatmap .axis path, div#heatmap .axis line {
+    stroke-width: 0;
+}
+
+#heatmap-tooltip {
+    position: absolute;
+    width: 80px;
+    height: auto;
+    padding: 10px;
+    background: #FFF;
+    border-radius: 5px;
+    box-shadow: 2px 2px 2px rgba(0,0,0,0.4);
+}
+
+#heatmap-tooltip.hidden {
+    display: none;
+}
+
+#heatmap-tooltip p {
+    margin: 0;
+    font-family: sans-serif;
+    font-size: 12px;
+    text-align: left;
+}
+/* --- end heatmap --- */

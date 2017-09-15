@@ -77,7 +77,7 @@ restapi.get('/we-area', function(req, res){
 // define a entry point to to count the number of users per hour of the day
 restapi.get('/we-h-day', function(req, res){
 	
-	db.all('SELECT COUNT(id) AS members, strftime("%d", ts) AS day, strftime("%H", ts) AS hour FROM movs WHERE id IS NOT NULL AND tag = "movement" GROUP BY day, hour ORDER BY day ASC',
+	db.all('SELECT strftime("%d", ts) AS day, strftime("%H", ts) AS hour, COUNT(distinct id) AS members FROM movs WHERE id IS NOT NULL GROUP BY day, hour ORDER BY day ASC',
 	function(err, rows){
 		
 		// Create the json objects from the result sql

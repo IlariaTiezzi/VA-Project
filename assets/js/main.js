@@ -1,15 +1,13 @@
 
-//Global variables
-var margin = 80;
-var w = 700;
-var h = 700;
-
-
 // Create a chart to see the size and position of the group of users in the park map
 d3.json("assets/data/we-groups.json", 
 
 	function(error, data) {
 		if (error) {console.log(error);} 
+
+		var margin = 80;
+		var w = 700;
+		var h = 700;
 		
 		// Create a SVG element inside the DIV with ID #viz
 		var svg = d3.select("#viz")
@@ -82,11 +80,11 @@ d3.json("assets/data/we-groups.json",
 
 
 		// Create the scales considering the range of the data
-		var Xscale = d3.scale.linear()
+		var xScale = d3.scale.linear()
 			.domain ([0,100])
 			.range([0, w]);
 
-		var Yscale = d3.scale.linear()
+		var yScale = d3.scale.linear()
 			.domain ([0,100])
 			.range([h, 0]);
 
@@ -96,11 +94,11 @@ d3.json("assets/data/we-groups.json",
 		
 		// Define the axis considering the scale
 		var xAxis = d3.svg.axis()
-			.scale(Xscale)
+			.scale(xScale)
 			.orient("bottom");
 
 		var yAxis = d3.svg.axis()
-			.scale(Yscale)
+			.scale(yScale)
 			.orient("left");
 
 		// Create the group for the axis x
@@ -122,82 +120,38 @@ d3.json("assets/data/we-groups.json",
 			.enter()
 			.append("circle")
 			.attr("id", function(d,i){return "group" + i;})
-			.attr("cx", function(d){return Xscale(d.x);})
-			.attr("cy", function(d){return Yscale(d.y);})
+			.attr("cx", function(d){return xScale(d.x);})
+			.attr("cy", function(d){return yScale(d.y);})
 			.attr("r", function(d){return scaleCount(d.members);})			
 			.attr("fill", "#0192b5")
 			.attr("opacity", "0.8")
-			.on("mouseover", function(d){
-				d3.select(this).style("stroke", "#0192b5").style("stroke-width", 3)
-				circleMouseOver(d);
-			})
-			.on("mouseout", function(d){ 
-				d3.select(this).style("stroke", "none");
-				circleMouseOut();				
-			});	
-		
-		// Define the group to content the box and related text
-	    var gMapRect = svg.append('g');
-		
-		// Create a rect for each data entry
-		var mapRect = gMapRect.selectAll("rect")
-			.data(data)
-			.enter()
-			.append("rect")
-			.attr("id", function(d,i){return "mapRect" + i;})
-			.attr("class", "mapRect")
-			.attr("x", function(d){return Xscale(d.x);})
-			.attr("y", function(d){return Yscale(d.y);})
-			.attr("dx", "20")
-			.attr("width", "120")
-			.attr("height", "70")
-			.attr("rx", 5)
-			.attr("ry", 5)
-			.style("fill", "#FFF")
-			.attr("stroke", "#666")
-			.attr("stroke-width", "1")
-			.style("display", "none");
-		
-		// Create a text for each data entry inside the rectangle
-		var labelRect = gMapRect.selectAll("text")
-			.data(data)
-			.enter()
-			.append("text")			
-			.attr("x", function(d){return Xscale(d.x)+40;})
-			.attr("y", function(d){return Yscale(d.y)+50;})						
-			.attr("class", "labelRect")
-			.attr("text-anchor", "left")
-			.attr("font-family","sans-serif")
-			.attr("font-size","12px")
-			.attr("fill","#666")
-			.style("display", "none");
+			.on("mouseover", function(d, i){
+        		// Get this cells x/y values, then augment for the tooltip
+        		var xPosition = parseFloat(d3.select(this).attr("cx"))+150;
+        		var yPosition = parseFloat(d3.select(this).attr("cy"))+150;
 
-		// Define the first line of text 
-		var textTspan1 = labelRect.append("tspan")			
-			.attr("x", function(d){return Xscale(d.x)+10;})
-			.attr("y", function(d){return Yscale(d.y)+28;})
-			.text(function(d,i){ return 'Group Id: ' + i;})
-			.attr("font-weight", "bold");
+        		// Update the tooltip position
+        		var labelCells = d3.select("#viz-tooltip")
+        			.style("left", xPosition + "px")
+        			.style("top", yPosition + "px");
 
-		// Define the second line of text
-		var textTspan2 = labelRect.append("tspan")			
-			.attr("x", function(d){return Xscale(d.x)+10;})
-			.attr("y", function(d){return Yscale(d.y)+48;})
-			.text(function(d){return "Members: " + d.members });
+        		// Update the value of the first paragraph
+        		var labelGroup = d3.select("#viz-group")
+        			.text("Group ID " + i);
 
-		// Define the event for the mouse over the circle
-		var circleMouseOver = function(d){			
-			var tempRect = mapRect.filter( function(e){ return (e.x == d.x) && (e.y == d.y); });
-			var tempText = labelRect.filter( function(e){ return (e.x == d.x) && (e.y == d.y); });
-			tempRect.style("display", "block");
-			tempText.style("display", "block");
-		}
+        		//  Update the value of the second paragraph
+        		var labelValue = d3.select("#viz-value")
+        			.text(d.members)
+        			.style("font-size", "20px")
+        			.style("font-weight", "bold");
 
-		// Define the event for the mouse out the circle
-		var circleMouseOut = function() {
-			mapRect.style("display", "none");
-			labelRect.style("display", "none");
-		}
+        		// Show the tooltip
+        		d3.select("#viz-tooltip").classed("hidden", false);
+        	})
+        	.on("mouseout", function(){
+        		// Hide the tooltip
+        		d3.select("#viz-tooltip").classed("hidden", true);
+        	});			
 	}	
 );
 
@@ -258,9 +212,164 @@ d3.json("assets/data/we-area.json",
 
 		    return chart;
 		});
-
-
 				
 	}	
 );
 
+
+// Create a heatmap  to display the number of users per hours of the day
+d3.json("assets/data/we-h-day.json", 
+
+	function(error, data) {
+		if (error) {console.log(error);} 
+
+		var margin = 30;
+		var w = 210;
+		var h = 470;
+		var colors = ["#c6dbef", "#9ecae1", "#6baed6", "#3182bd"];
+		var formatSuffix = d3.format(".2s");
+		var extentValue = d3.extent(data, function(d){ return d.members});	
+
+		// Set the name of the days
+		var setDay = function(d){
+			var day;
+			if (d.day === "06") { return day = "Fr";}
+			else if (d.day === "07") { return day = "Sa";}
+			else { return day = "Su";}
+			return day;
+		}	
+
+		// Define a new data array and set the name of the days
+		var dataset = data.map(function(d) {
+    		return {
+    			day: setDay(d),
+        		hour: d.hour,
+    			value: d.members
+    		}
+		});
+		
+		// Create a new array by extracting and sorting only the hours
+		var hours = d3.set(dataset
+			.map(function(d){return d.hour;})).values()
+			.sort(function(a,b){return a - b});
+			
+		// Create a new array by extracting only the days
+		var days = d3.set(dataset
+			.map(function(d){ return d.day;})).values();		
+
+		// Create a SVG element inside the DIV with ID #heatmap
+		var svg = d3.select('#heatmap')
+        	.append("svg")
+        	.attr("width", w + margin)
+        	.attr("height", h + margin + margin)
+        	.append("g");        	
+
+        // Create the scales considering the range of the data
+        var xScale = d3.scale.ordinal()
+        	.domain(days)
+        	.rangeBands([0, w]);
+
+        var yScale = d3.scale.ordinal()
+        	.domain(hours)
+        	.rangeBands([0, h]);
+
+        var colorScale = d3.scale.quantile()
+        	.domain(extentValue)
+        	.range(colors); 
+
+        // Define the axis considering the scale
+    	var xAxis = d3.svg.axis()
+        	.scale(xScale)        	
+        	.orient("bottom");
+
+        var yAxis = d3.svg.axis()
+        	.scale(yScale)        	
+        	.orient("right");
+
+        // Create cells by considering day and time as coordinates, then color them according to the number of users
+        var cells = svg.selectAll('rect')
+        	.data(dataset)
+        	.enter()
+        	.append('g')
+        	.append('rect')
+        	.attr('class', 'cell')
+        	.attr('width', w/3-3)
+        	.attr('height', h/16-3)
+        	.attr('x', function(d){return xScale(d.day);})
+        	.attr('y', function(d){return yScale(d.hour);})        	
+        	.attr('fill', function(d) {return colorScale(d.value);})
+        	
+        	.on("mouseover", function(d){
+        		// Get this cells x/y values, then augment for the tooltip
+        		var xPosition = parseFloat(d3.select(this).attr("x")) + xScale.rangeBand()/2;
+        		var yPosition = parseFloat(d3.select(this).attr("y")) /2 + h/2;
+
+        		// Update the tooltip position
+        		var labelCells = d3.select("#heatmap-tooltip")
+        			.style("left", xPosition + "px")
+        			.style("top", yPosition + "px");
+
+        		// Updates the value of the first paragraph
+        		var labelTime = d3.select("#heatmap-time")
+        			.text(d.day + " " + d.hour);
+
+        		// Updates the value of the second paragraph
+        		var labelValue = d3.select("#heatmap-value")
+        			.text(d.value)
+        			.style("font-size", "20px")
+        			.style("font-weight", "bold");
+
+        		// Show the tooltip
+        		d3.select("#heatmap-tooltip").classed("hidden", false);
+        	})
+        	.on("mouseout", function(){
+        		// Hide the tooltip
+        		d3.select("#heatmap-tooltip").classed("hidden", true);
+        	});
+
+        // Add x axis to svg
+        svg.append("g")
+        	.attr("class", "axis")
+        	.attr("transform", "translate(0," + h + ")")
+        	.call(xAxis)
+        	.selectAll('text')
+        	.attr('font-weight', 'normal')
+        	.style("text-anchor", "start")
+        	.attr("dx", "-1em");        	
+
+        // Add y axis to svg
+        svg.append("g")
+        	.attr("class", "axis")
+        	.attr("transform", "translate(" + w + ", 0)")
+        	.call(yAxis)
+        	.selectAll('text')
+        	.attr('font-weight', 'normal')
+        	.style("text-anchor", "start");
+
+        // Define a legend according to the color scale
+        var legend = svg.selectAll(".legend")
+              .data([0].concat(colorScale.quantiles()), function(d) { return d; })
+              .enter().append("g")
+              .attr("class", "legend");
+
+        // Add the rectangles by assigning the fill according to the color scale
+        legend.append("rect")
+            .attr("x", function(d, i) { return w/4 * i; })
+            .attr("y", 510)
+            .attr("width", w/4)
+            .attr("height", 10)
+            .style("fill", function(d, i) { return colors[i];});
+
+        // Add the text by defining the format
+        legend.append("text")
+            .attr("class", "txt-legend")
+            .text(function(d) { return "≥ " + formatSuffix(d); })
+            .attr("x", function(d, i) { return w/4 * i; })
+            .attr("y", 510)
+            .attr("dy", 20)
+            .style("font-size", "11px")
+            .style("fill", "#0192b5")
+            .style("font-family", "sans-serif");        
+		
+	}
+);

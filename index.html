@@ -56,7 +56,12 @@
 		</ol>	
 		<div class="container">
 			<h2>Location and size of user groups</h2>
-			<div id="viz"></div>			
+			<div id="viz"></div>
+			<div id="viz-tooltip" class="hidden">
+				<p id="viz-group"></p>	
+				<p id="viz-value"></p>
+				<p>users</p>
+			</div>			
 		</div>			
 	</div>
 	<div class="container whitebox">
@@ -70,6 +75,11 @@
 			<div class="col-md-5 whitebox">
 				<h2>Users per hours of the day</h2>
 				<div id="heatmap"></div>
+				<div id="heatmap-tooltip" class="hidden">
+					<p id="heatmap-time"></p>	
+					<p id="heatmap-value"></p>
+					<p>users</p>					
+				</div>
 			</div>			
 			<div class="col-md-5 whitebox">
 				<h2>Checkin per day</h2>

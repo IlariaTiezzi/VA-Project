@@ -122,7 +122,7 @@ d3.json("assets/data/we-groups.json",
 			.attr("id", function(d,i){return "group" + i;})
 			.attr("cx", function(d){return xScale(d.x);})
 			.attr("cy", function(d){return yScale(d.y);})
-			.attr("r", function(d){return scaleCount(d.members);})			
+			.attr("r", function(d){return scaleCount(d.users);})			
 			.attr("fill", "#0192b5")
 			.attr("opacity", "0.8")
 			.on("mouseover", function(d, i){
@@ -141,7 +141,7 @@ d3.json("assets/data/we-groups.json",
 
         		//  Update the value of the second paragraph
         		var labelValue = d3.select("#viz-value")
-        			.text(d.members)
+        			.text(d.users)
         			.style("font-size", "20px")
         			.style("font-weight", "bold");
 
@@ -156,7 +156,7 @@ d3.json("assets/data/we-groups.json",
 );
 
 
-// Create a multi bar charts  to display the number of members per area
+// Create a multi bar charts  to display the number of users per area
 d3.json("assets/data/we-area.json", 
 
 	function(error, data) {
@@ -181,7 +181,7 @@ d3.json("assets/data/we-area.json",
 		var dataset = d3.nest()
 			.key(function(d){return setDay(d);})
 			.key(function(d){return d.area;})
-			.rollup(function(v){return d3.sum(v,function(d){return d.members;});})
+			.rollup(function(v){return d3.sum(v,function(d){return d.users;});})
 			.entries(data)
 			.map(function(d){
 				return {
@@ -228,7 +228,7 @@ d3.json("assets/data/we-h-day.json",
 		var h = 470;
 		var colors = ["#c6dbef", "#9ecae1", "#6baed6", "#3182bd"];
 		var formatSuffix = d3.format(".2s");
-		var extentValue = d3.extent(data, function(d){ return d.members});	
+		var extentValue = d3.extent(data, function(d){ return d.users});	
 
 		// Set the name of the days
 		var setDay = function(d){
@@ -244,7 +244,7 @@ d3.json("assets/data/we-h-day.json",
     		return {
     			day: setDay(d),
         		hour: d.hour,
-    			value: d.members
+    			value: d.users
     		}
 		});
 		

@@ -193,12 +193,13 @@ d3.json("assets/data/we-area.json",
   		// Create a multi bar charts for the dataset
 		nv.addGraph(function() {
 		    var chart = nv.models.multiBarChart()
-			      .duration(350)
-			      .reduceXTicks(true) 
-			      .rotateLabels(0)      
-			      .showControls(true)   
-			      .groupSpacing(0.1)
-			      .color(d3.scale.category20c().range());    
+			      .duration(350)		
+			      .reduceXTicks(true)  	//If 'false', every single x-axis tick label will be rendered.
+			      .rotateLabels(0)     	//Angle to rotate x-axis labels.
+			      .showControls(true)	//Allow user to switch between 'Grouped' and 'Stacked' mode.
+			      .groupSpacing(0.1)	//Distance between each group of bars.
+			      .color(d3.scale.category20c().range()); // Configure the range of colors. .reduceXTicks(true) 
+      
 		    
 		    chart.xAxis;
 
@@ -373,3 +374,53 @@ d3.json("assets/data/we-h-day.json",
 		
 	}
 );
+
+
+// Create a donut charts  to display the number check-in per day
+d3.json("assets/data/we-checkin-day.json", 
+
+	function(error, data) {
+		if (error) {console.log(error);} 
+
+		// Create a SVG element inside the DIV with ID #multibar		
+		var svg = d3.select("#donutchart")
+			.append("svg")
+			.attr("width", 250)
+			.attr("height", 250);
+		
+		// Set the name of the days
+		var setDay = function(d){
+			var day;
+			if (d.day === "06") { return day = "Friday";}
+			else if (d.day === "07") { return day = "Saturday";}
+			else { return day = "Sunday";}
+			return day;
+		}
+		
+		
+		// Create a donut charts for the data 
+		nv.addGraph(function() {
+			var chart = nv.models.pieChart()
+				.x(function(d) { return setDay(d) })
+				.y(function(d) { return d.users })
+				.showLabels(true)     //Display pie labels
+				.labelThreshold(.05)  //Configure the minimum slice size for labels to show up
+				.labelType("percent") //Configure what type of data to show in the label. Can be "key", "value" or "percent"
+				.donut(true)          //Turn on Donut mode. Makes pie chart look tasty!
+				.donutRatio(0.35)     //Configure how big you want the donut hole size to be.
+				.color(d3.scale.category20c().range());  // Configure the range of colors.
+			  
+
+			d3.select("#donutchart svg")
+			    .datum(data)
+			    .transition().duration(350)
+			    .call(chart);
+
+			return chart;
+		});
+				
+	}	
+);
+
+
+

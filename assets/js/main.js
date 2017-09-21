@@ -162,6 +162,8 @@ d3.json("assets/data/we-area.json",
 	function(error, data) {
 		if (error) {console.log(error);} 
 
+		var colors = ["#9ecae1", "#6baed6", "#3182bd"];
+
 		// Create a SVG element inside the DIV with ID #multibar		
 		var svg = d3.select("#multibar")
 			.append("svg")
@@ -198,7 +200,7 @@ d3.json("assets/data/we-area.json",
 			      .rotateLabels(0)     	//Angle to rotate x-axis labels.
 			      .showControls(true)	//Allow user to switch between 'Grouped' and 'Stacked' mode.
 			      .groupSpacing(0.1)	//Distance between each group of bars.
-			      .color(d3.scale.category20c().range()); // Configure the range of colors. .reduceXTicks(true) 
+			      .color(colors); // Configure the range of colors 
       
 		    
 		    chart.xAxis;
@@ -382,6 +384,8 @@ d3.json("assets/data/we-checkin-day.json",
 	function(error, data) {
 		if (error) {console.log(error);} 
 
+		var colors = ["#9ecae1", "#6baed6", "#3182bd"];
+
 		// Create a SVG element inside the DIV with ID #multibar		
 		var svg = d3.select("#donutchart")
 			.append("svg")
@@ -408,7 +412,7 @@ d3.json("assets/data/we-checkin-day.json",
 				.labelType("percent") //Configure what type of data to show in the label. Can be "key", "value" or "percent"
 				.donut(true)          //Turn on Donut mode. Makes pie chart look tasty!
 				.donutRatio(0.35)     //Configure how big you want the donut hole size to be.
-				.color(d3.scale.category20c().range());  // Configure the range of colors.
+				.color(colors);  // Configure the range of colors.
 			  
 
 			d3.select("#donutchart svg")

@@ -8,8 +8,14 @@
 .h2, h2 {
     margin-bottom: 40px;
     font-size: 20px;
+    text-align: center;
+}
+
+.h3, h3 {
+    margin-bottom: 20px;
     font-weight: normal;
     text-align: center;
+    font-size: 16px;    
 }
 
 /* --- end Text --- */
@@ -25,17 +31,23 @@ body {
     background-color: #FFF;
     box-shadow: 0px 2px 2px #666;
     border-radius: 3px;
-    text-align: right;  
+    text-align: right; 
+    overflow: auto; 
 }
 
 a .btn {
     margin-top: 30px;
     cursor: pointer;
 }
-
+footer {
+    margin-top: 30px;
+    padding: 20px;
+    background: #eee;
+    border-top: 1px solid #CCC;
+}
 footer p {
-    font-size: 14px;
-    padding: 10px 20px;
+    font-size: 14px; 
+    color: #666;   
 }
 /* --- end main ---*/
 /* --- axis --- */
@@ -94,16 +106,16 @@ div#viz {
 }
 /*--- end multibar --- */
 /* --- heatmap --- */
-div#heatmap {
+.heatmap {
     margin: 0 auto;
     text-align: center;
 }
 
-div#heatmap .axis path, div#heatmap .axis line {
+.heatmap .axis path, .heatmap .axis line {
     stroke-width: 0;
 }
 
-#heatmap-tooltip {
+.h-tooltip {
     position: absolute;
     width: 80px;
     height: auto;
@@ -113,14 +125,14 @@ div#heatmap .axis path, div#heatmap .axis line {
     box-shadow: 2px 2px 2px rgba(0,0,0,0.4);
 }
 
-#heatmap-tooltip.hidden {
-    display: none;
-}
-
-#heatmap-tooltip p {
+.h-tooltip p {
     margin: 0;
     font-family: sans-serif;
     font-size: 12px;
     text-align: left;
+}
+
+#heatmap-tooltip.hidden, #heatmap-tooltip-fri.hidden, #heatmap-tooltip-sat.hidden, #heatmap-tooltip-sun.hidden  {
+    display: none;
 }
 /* --- end heatmap --- */

@@ -35,13 +35,13 @@
       	<div class="collapse navbar-collapse" id="navbarCollapse">	        
         	<ul class="navbar-nav mr-auto">
 				<li class="nav-item active">
-					<a class="nav-link" href="http://localhost/va_project/">Home <span class="sr-only">(current)</span></a>
+					<a class="nav-link" href="index.html">Home <span class="sr-only">(current)</span></a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" href="http://localhost/va_project/behavior.html">Behavior</a>
+					<a class="nav-link" href="behavior.html">Behavior</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" href="http://localhost/va_project/anomalies.html">Anomalies</a>
+					<a class="nav-link" href="anomalies.html">Anomalies</a>
 				</li>
 	        </ul>	         
 	        <div class="mt-2 mt-md-0">	         
@@ -57,7 +57,7 @@
 		<div class="container">
 			<h2>Location and size of user groups</h2>
 			<div id="viz"></div>
-			<div id="viz-tooltip" class="hidden">
+			<div id="viz-tooltip" class="hidden h-tooltip">
 				<p id="viz-group"></p>	
 				<p id="viz-value"></p>
 				<p>users</p>
@@ -67,8 +67,7 @@
 	<div class="container whitebox">
 		<h2>Users per area</h2>
 		<div id="multibar"></div>
-		<a href="http://localhost/va_project/behavior"><button type="button" class="btn btn-info">Overview of user flow ></button></a>
-		
+		<a href="behavior.html#linechart"><button type="button" class="btn btn-info">Comparison of movements per day ></button></a>
 	</div>
 	<div class="container">
 		<div class="row">
@@ -80,11 +79,12 @@
 					<p id="heatmap-value"></p>
 					<p>users</p>					
 				</div>
+				<a href="behavior.html#heatmaps"><button type="button" class="btn btn-info">Comparison of users per day, area and hour ></button></a>
 			</div>			
 			<div class="col-md-5 whitebox">
 				<h2>Checkin per day</h2>
 				<div id="donutchart"></div>
-				<a href="http://localhost/va_project/anomalies"><button type="button" class="btn btn-info">Overview of check-in gaps ></button></a>
+				<a href="anomalies.html"><button type="button" class="btn btn-info">Overview of check-in per number of movement ></button></a>
 			</div>
 		</div>
 	</div>

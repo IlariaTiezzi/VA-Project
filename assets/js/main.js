@@ -127,8 +127,8 @@ d3.json("assets/data/we-groups.json",
 			.attr("opacity", "0.8")
 			.on("mouseover", function(d, i){
         		// Get this cells x/y values, then augment for the tooltip
-        		var xPosition = parseFloat(d3.select(this).attr("cx"))+150;
-        		var yPosition = parseFloat(d3.select(this).attr("cy"))+150;
+        		var xPosition = parseFloat(d3.select(this).attr("cx"))+250;
+        		var yPosition = parseFloat(d3.select(this).attr("cy"))+250;
 
         		// Update the tooltip position
         		var labelCells = d3.select("#viz-tooltip")
@@ -200,8 +200,7 @@ d3.json("assets/data/we-area.json",
 			      .rotateLabels(0)     	//Angle to rotate x-axis labels.
 			      .showControls(true)	//Allow user to switch between 'Grouped' and 'Stacked' mode.
 			      .groupSpacing(0.1)	//Distance between each group of bars.
-			      .color(colors); // Configure the range of colors 
-      
+			      .color(colors); 		// Configure the range of colors.      
 		    
 		    chart.xAxis;
 

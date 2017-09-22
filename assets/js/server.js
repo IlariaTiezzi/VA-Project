@@ -138,6 +138,103 @@ restapi.get('/we-checkin-day', function(req, res){
 	});
 });
 
+// define a entry point to count the number of users per area and hour of friday
+restapi.get('/we-h-area-fri', function(req, res){
+
+	db.all('SELECT strftime("%H", ts) AS hour, CASE WHEN x <= 50 AND y >= 54 AND y <= 99 THEN "Tundra Land" WHEN x >= 50 AND x <= 70 AND y >= 54 AND y <= 99 THEN "Entry Corridor" WHEN x >= 70 AND x <= 99 AND y >= 54 AND y <= 99 THEN "Kiddie Land" WHEN x >= 70 AND x <= 99 AND y >= 54 AND y <= 99 THEN "Kiddie Land" WHEN x <= 82 AND y >= 31 AND y <= 54 THEN "Wet Land" ELSE "Coaster Alley" END as area, COUNT(id) AS users  FROM movs WHERE id IS NOT NULL AND strftime("%d", ts) = "06" GROUP BY hour, area',
+	function(err, rows){
+		
+		// Create the json objects from the result sql
+		var json = JSON.stringify(rows);
+		
+		if (err) throw err;
+
+		// Write the object inside a file json
+		fs.writeFile('../data/we-h-area-fri.json', json, 'utf8', function (err) {
+	  		if (err) throw err;	 
+
+	  		//Write a response to the client
+	  		res.writeHead(200, {'Content-Type': 'text/html'});
+	  		res.write('<h1>VAST Challenge 2015 - MC1</h1>');
+	  		res.write('<h2>Project of Visual Analytics</h2>');
+	  		res.write('<p>File json saved successfully!</p>');
+	  		res.write('<p>You can see the result here: <a href="http://localhost/va_project/">VAST PROJECT</a></p>');
+
+	  		//Write a response to the console
+	  		console.log('File json saved successfully!');
+
+	  		// End the response  		
+	  		res.end();
+	  		
+		});		 			
+	});
+});
+
+// define a entry point to count the number of users per area and hour of saturday
+restapi.get('/we-h-area-sat', function(req, res){
+
+	db.all('SELECT strftime("%H", ts) AS hour, CASE WHEN x <= 50 AND y >= 54 AND y <= 99 THEN "Tundra Land" WHEN x >= 50 AND x <= 70 AND y >= 54 AND y <= 99 THEN "Entry Corridor" WHEN x >= 70 AND x <= 99 AND y >= 54 AND y <= 99 THEN "Kiddie Land" WHEN x >= 70 AND x <= 99 AND y >= 54 AND y <= 99 THEN "Kiddie Land" WHEN x <= 82 AND y >= 31 AND y <= 54 THEN "Wet Land" ELSE "Coaster Alley" END as area, COUNT(id) AS users  FROM movs WHERE id IS NOT NULL AND strftime("%d", ts) = "07" GROUP BY hour, area',
+	function(err, rows){
+		
+		// Create the json objects from the result sql
+		var json = JSON.stringify(rows);
+		
+		if (err) throw err;
+
+		// Write the object inside a file json
+		fs.writeFile('../data/we-h-area-sat.json', json, 'utf8', function (err) {
+	  		if (err) throw err;	 
+
+	  		//Write a response to the client
+	  		res.writeHead(200, {'Content-Type': 'text/html'});
+	  		res.write('<h1>VAST Challenge 2015 - MC1</h1>');
+	  		res.write('<h2>Project of Visual Analytics</h2>');
+	  		res.write('<p>File json saved successfully!</p>');
+	  		res.write('<p>You can see the result here: <a href="http://localhost/va_project/">VAST PROJECT</a></p>');
+
+	  		//Write a response to the console
+	  		console.log('File json saved successfully!');
+
+	  		// End the response  		
+	  		res.end();
+	  		
+		});		 			
+	});
+});
+
+// define a entry point to count the number of users per area and hour of sunday
+restapi.get('/we-h-area-sun', function(req, res){
+
+	db.all('SELECT strftime("%H", ts) AS hour, CASE WHEN x <= 50 AND y >= 54 AND y <= 99 THEN "Tundra Land" WHEN x >= 50 AND x <= 70 AND y >= 54 AND y <= 99 THEN "Entry Corridor" WHEN x >= 70 AND x <= 99 AND y >= 54 AND y <= 99 THEN "Kiddie Land" WHEN x >= 70 AND x <= 99 AND y >= 54 AND y <= 99 THEN "Kiddie Land" WHEN x <= 82 AND y >= 31 AND y <= 54 THEN "Wet Land" ELSE "Coaster Alley" END as area, COUNT(id) AS users  FROM movs WHERE id IS NOT NULL AND strftime("%d", ts) = "08" GROUP BY hour, area',
+	function(err, rows){
+		
+		// Create the json objects from the result sql
+		var json = JSON.stringify(rows);
+		
+		if (err) throw err;
+
+		// Write the object inside a file json
+		fs.writeFile('../data/we-h-area-sun.json', json, 'utf8', function (err) {
+	  		if (err) throw err;	 
+
+	  		//Write a response to the client
+	  		res.writeHead(200, {'Content-Type': 'text/html'});
+	  		res.write('<h1>VAST Challenge 2015 - MC1</h1>');
+	  		res.write('<h2>Project of Visual Analytics</h2>');
+	  		res.write('<p>File json saved successfully!</p>');
+	  		res.write('<p>You can see the result here: <a href="http://localhost/va_project/">VAST PROJECT</a></p>');
+
+	  		//Write a response to the console
+	  		console.log('File json saved successfully!');
+
+	  		// End the response  		
+	  		res.end();
+	  		
+		});		 			
+	});
+});
+
+
 restapi.listen(3000);
 console.log("Listening on port 3000...");
 

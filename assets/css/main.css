@@ -39,12 +39,14 @@ a .btn {
     margin-top: 30px;
     cursor: pointer;
 }
+
 footer {
     margin-top: 30px;
     padding: 20px;
     background: #eee;
     border-top: 1px solid #CCC;
 }
+
 footer p {
     font-size: 14px; 
     color: #666;   
@@ -64,6 +66,25 @@ footer p {
   font-size: 11px;
 }
 /* --- end axis --- */
+/* --- nvd3 tooltip --- */
+.nvtooltip {
+    padding: 10px;
+    background: #FFF;
+    border: 1px solid #ddd;
+    box-shadow: 2px 2px 2px rgba(0,0,0,0.4);
+
+    font-family: sans-serif;
+    font-size: 12px;
+
+    transition: opacity 500ms linear;
+    -moz-transition: opacity 500ms linear;
+    -webkit-transition: opacity 500ms linear;
+
+    transition-delay: 500ms
+    -moz-transition-delay: 500ms;
+    -webkit-transition-delay: 500ms;
+}
+/* --- end nvd3 tooltip --- */
 /* --- viz --- */
 div#viz {
     margin: 0 auto;
@@ -121,7 +142,7 @@ div#viz {
     height: auto;
     padding: 10px;
     background: #FFF;
-    border-radius: 5px;
+    border: 1px solid #ddd;
     box-shadow: 2px 2px 2px rgba(0,0,0,0.4);
 }
 
@@ -136,3 +157,72 @@ div#viz {
     display: none;
 }
 /* --- end heatmap --- */
+/* --- end line chart --- */
+div#linechart {
+    width: 100%;
+    text-align: center;
+}
+
+div#linechart g.nv-background {
+    fill: rgba(255,255,255,0.5);
+}
+
+/* - axis - */
+div#linechart .nv-indexLine {
+    width: 1px;
+    fill: #CCC;
+}
+
+div#linechart path.domain {
+    stroke: #CCC;
+}
+
+div#linechart .tick line {
+    stroke-width: 1px;
+    stroke: #ddd;
+}
+
+div#linechart .zero line {  
+  stroke: #666;
+}
+
+div#linechart g.tick, div#linechart g.nv-axisMaxMin {
+    font-size: 12px;
+    fill: #666;
+    opacity:1;
+}
+
+div#linechart text.nv-axislabel {
+    fill: #0192b5;    
+    text-transform: uppercase;
+    font-size: 12px;
+}
+/* - end axis - */
+/* - line chart - */
+div#linechart .nvd3 .nv-groups path.nv-line {
+    fill: none;
+}
+
+div#linechart .nvd3.nv-scatter .nv-groups .nv-point.hover,
+div#linechart .nvd3 .nv-groups .nv-point.hover {    
+    stroke-width: 20px;
+    stroke-opacity: .5;
+    transition: stroke-width 250ms linear;
+    -moz-transition: stroke-width 250ms linear;
+    -webkit-transition: stroke-width 250ms linear;  
+}
+
+/* - end line chart - */
+/* - legend - */
+.nvd3.nv-legend circle {
+    stroke-width: 2px;
+    cursor: pointer;
+}
+
+div#linechart .nvd3.nv-legend .disabled circle {
+  fill: 0;
+}
+/* - end legend - */
+
+
+/* --- end line chart --- */

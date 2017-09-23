@@ -19,6 +19,7 @@
     <script src="node_modules/popper.js/dist/umd/popper.min.js" type="text/javascript" charset="utf-8"></script>
     <script src="node_modules/bootstrap/dist/js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
     <script src="node_modules/d3/d3.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="node_modules/nvd3/build/nv.d3.min.js" type="text/javascript" charset="utf-8"></script>
 	
 	<!-- Custom Javascript libraries -->
 	<script src="assets/js/behavior.js" type="text/javascript" charset="utf-8"></script>
@@ -52,10 +53,10 @@
 		<li class="breadcrumb-item active">Behavior</li>
 	</ol>
 	
-	<div id="heatmaps" class="container">		
-		<h2>Members per locations and hours of the day</h2>
+	<div id="heatmaps" class="container whitebox">		
+		<h2>Check-ins per area and hours of the day</h2>
 		<div class="row">
-			<div class="col-md-4 whitebox">
+			<div class="col-md-4">
 				<h3>Friday</h3>
 				<div id="heatmap-fri" class="heatmap"></div>
 				<div id="heatmap-tooltip-fri" class="hidden h-tooltip">
@@ -64,7 +65,7 @@
 					<p>users</p>					
 				</div>
 			</div>
-			<div class="col-md-4 whitebox">
+			<div class="col-md-4">
 				<h3>Saturday</h3>
 				<div id="heatmap-sat" class="heatmap"></div>
 				<div id="heatmap-tooltip-sat" class="hidden h-tooltip">
@@ -73,7 +74,7 @@
 					<p>users</p>					
 				</div>
 			</div>
-			<div class="col-md-4 whitebox">
+			<div class="col-md-4">
 				<h3>Sunday</h3>
 				<div id="heatmap-sun" class="heatmap"></div>
 				<div id="heatmap-tooltip-sun" class="hidden h-tooltip">
@@ -84,8 +85,11 @@
 			</div>
 		</div>						
 	</div>			
-	<div id="linechart" class="container" >		
-		<h2>Comparison of movements per day</h2>		
+	<div class="container whitebox" >		
+		<h2>Comparison of movements per day</h2>
+		<div class="row"> 
+			<div id="linechart"></div>	
+		</div>	
 	</div>
 
 	<footer>

@@ -1,3 +1,7 @@
+// Global variables
+var c20c = d3.scale.category20c().range();
+var colors = [c20c[3],c20c[2], c20c[1], c20c[0]];
+var formatSuffix = d3.format(".2s");
 
 // Create a chart to see the size and position of the group of users in the park map
 d3.json("assets/data/we-groups.json", 
@@ -123,7 +127,7 @@ d3.json("assets/data/we-groups.json",
 			.attr("cx", function(d){return xScale(d.x);})
 			.attr("cy", function(d){return yScale(d.y);})
 			.attr("r", function(d){return scaleCount(d.users);})			
-			.attr("fill", "#0192b5")
+			.attr("fill", colors[3])
 			.attr("opacity", "0.8")
 			.on("mouseover", function(d, i){
         		// Get this cells x/y values, then augment for the tooltip
@@ -141,7 +145,7 @@ d3.json("assets/data/we-groups.json",
 
         		//  Update the value of the second paragraph
         		var labelValue = d3.select("#viz-value")
-        			.text(d.users)
+        			.text(formatSuffix(d.users))
         			.style("font-size", "20px")
         			.style("font-weight", "bold");
 
@@ -156,13 +160,11 @@ d3.json("assets/data/we-groups.json",
 );
 
 
-// Create a multi bar charts  to display the number of users per area
+// Create a multi bar charts  to display the number of check-in per area
 d3.json("assets/data/we-area.json", 
 
 	function(error, data) {
 		if (error) {console.log(error);} 
-
-		var colors = ["#9ecae1", "#6baed6", "#3182bd"];
 
 		// Create a SVG element inside the DIV with ID #multibar		
 		var svg = d3.select("#multibar")
@@ -202,14 +204,17 @@ d3.json("assets/data/we-area.json",
 			      .groupSpacing(0.1)	//Distance between each group of bars.
 			      .color(colors); 		// Configure the range of colors.      
 		    
-		    chart.xAxis;
+		    //chart.xAxis;
 
-		    chart.yAxis.tickFormat(d3.format('s')); 
+		    // Define the format of number in the y axis
+		    chart.yAxis.tickFormat(formatSuffix); 
 
+		    // Add the data to chart
 		    d3.select('#multibar svg')
 		        .datum(dataset)
 		        .call(chart);
 
+		    // Resize chart according to the size of the window
 		    nv.utils.windowResize(chart.update);
 
 		    return chart;
@@ -219,7 +224,7 @@ d3.json("assets/data/we-area.json",
 );
 
 
-// Create a heatmap  to display the number of users per hours of the day
+// Create a heatmap  to display the number of check-in per hours of the day
 d3.json("assets/data/we-h-day.json", 
 
 	function(error, data) {
@@ -317,7 +322,7 @@ d3.json("assets/data/we-h-day.json",
 
         		// Updates the value of the second paragraph
         		var labelValue = d3.select("#heatmap-value")
-        			.text(d.value)
+        			.text(formatSuffix(d.value))
         			.style("font-size", "20px")
         			.style("font-weight", "bold");
 
@@ -404,8 +409,8 @@ d3.json("assets/data/we-checkin-day.json",
 		// Create a donut charts for the data 
 		nv.addGraph(function() {
 			var chart = nv.models.pieChart()
-				.x(function(d) { return setDay(d) })
-				.y(function(d) { return d.users })
+				.x(function(d) { return setDay(d); })
+				.y(function(d) { return d.users; })
 				.showLabels(true)     //Display pie labels
 				.labelThreshold(.05)  //Configure the minimum slice size for labels to show up
 				.labelType("percent") //Configure what type of data to show in the label. Can be "key", "value" or "percent"
@@ -413,6 +418,8 @@ d3.json("assets/data/we-checkin-day.json",
 				.donutRatio(0.35)     //Configure how big you want the donut hole size to be.
 				.color(colors);  // Configure the range of colors.
 			  
+			// Define the format of values in the tooltip
+			chart.tooltip.valueFormatter(d3.format('.2s'));
 
 			d3.select("#donutchart svg")
 			    .datum(data)

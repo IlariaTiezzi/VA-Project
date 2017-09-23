@@ -234,6 +234,38 @@ restapi.get('/we-h-area-sun', function(req, res){
 	});
 });
 
+// define a entry point to count the number of movements during the days
+restapi.get('/we-mov', function(req, res){
+
+	db.all('SELECT strftime("%d", ts) AS day, strftime("%H", ts) AS hour, COUNT(id) AS users FROM movs WHERE id IS NOT NULL AND tag = "movement" GROUP BY day, hour ORDER BY hour ASC',
+	function(err, rows){
+		
+		// Create the json objects from the result sql
+		var json = JSON.stringify(rows);
+		
+		if (err) throw err;
+
+		// Write the object inside a file json
+		fs.writeFile('../data/we-mov.json', json, 'utf8', function (err) {
+	  		if (err) throw err;	 
+
+	  		//Write a response to the client
+	  		res.writeHead(200, {'Content-Type': 'text/html'});
+	  		res.write('<h1>VAST Challenge 2015 - MC1</h1>');
+	  		res.write('<h2>Project of Visual Analytics</h2>');
+	  		res.write('<p>File json saved successfully!</p>');
+	  		res.write('<p>You can see the result here: <a href="http://localhost/va_project/">VAST PROJECT</a></p>');
+
+	  		//Write a response to the console
+	  		console.log('File json saved successfully!');
+
+	  		// End the response  		
+	  		res.end();
+	  		
+		});		 			
+	});
+});
+
 
 restapi.listen(3000);
 console.log("Listening on port 3000...");

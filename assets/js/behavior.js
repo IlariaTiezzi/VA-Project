@@ -5,7 +5,7 @@ var colors = [c20c[3],c20c[2], c20c[1], c20c[0]];
 var formatSuffix = d3.format(".2s");
 
 // Create a heatmap  to display the number of check-in per hours of the friday
-d3.json("assets/data/we-h-area-fri.json", 
+d3.json("assets/data/fri-h-area.json", 
 
 	function(error, data) {
 		if (error) {console.log(error);} 
@@ -162,7 +162,7 @@ d3.json("assets/data/we-h-area-fri.json",
 );
 
 // Create a heatmap  to display the number of check-in per hours of the saturday
-d3.json("assets/data/we-h-area-sat.json", 
+d3.json("assets/data/sat-h-area.json", 
 
     function(error, data) {
         if (error) {console.log(error);} 
@@ -319,7 +319,7 @@ d3.json("assets/data/we-h-area-sat.json",
 );
 
 // Create a heatmap  to display the number of check-in per hours of the sunday
-d3.json("assets/data/we-h-area-sun.json", 
+d3.json("assets/data/sun-h-area.json", 
 
     function(error, data) {
         if (error) {console.log(error);} 

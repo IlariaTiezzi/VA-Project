@@ -139,7 +139,7 @@ restapi.get('/we-checkin-day', function(req, res){
 });
 
 // define a entry point to count the number of check-in per area and hour of friday
-restapi.get('/we-h-area-fri', function(req, res){
+restapi.get('/fri-h-area', function(req, res){
 
 	db.all('SELECT strftime("%H", ts) AS hour, CASE WHEN x <= 50 AND y >= 54 AND y <= 99 THEN "Tundra Land" WHEN x >= 50 AND x <= 70 AND y >= 54 AND y <= 99 THEN "Entry Corridor" WHEN x >= 70 AND x <= 99 AND y >= 54 AND y <= 99 THEN "Kiddie Land" WHEN x >= 70 AND x <= 99 AND y >= 54 AND y <= 99 THEN "Kiddie Land" WHEN x <= 82 AND y >= 31 AND y <= 54 THEN "Wet Land" ELSE "Coaster Alley" END as area, COUNT(id) AS users  FROM movs WHERE id IS NOT NULL AND strftime("%d", ts) = "06" AND tag = "check-in" GROUP BY hour, area',
 	function(err, rows){
@@ -150,7 +150,7 @@ restapi.get('/we-h-area-fri', function(req, res){
 		if (err) throw err;
 
 		// Write the object inside a file json
-		fs.writeFile('../data/we-h-area-fri.json', json, 'utf8', function (err) {
+		fs.writeFile('../data/fri-h-area.json', json, 'utf8', function (err) {
 	  		if (err) throw err;	 
 
 	  		//Write a response to the client
@@ -171,7 +171,7 @@ restapi.get('/we-h-area-fri', function(req, res){
 });
 
 // define a entry point to count the number of check-in per area and hour of saturday
-restapi.get('/we-h-area-sat', function(req, res){
+restapi.get('/sat-h-area', function(req, res){
 
 	db.all('SELECT strftime("%H", ts) AS hour, CASE WHEN x <= 50 AND y >= 54 AND y <= 99 THEN "Tundra Land" WHEN x >= 50 AND x <= 70 AND y >= 54 AND y <= 99 THEN "Entry Corridor" WHEN x >= 70 AND x <= 99 AND y >= 54 AND y <= 99 THEN "Kiddie Land" WHEN x >= 70 AND x <= 99 AND y >= 54 AND y <= 99 THEN "Kiddie Land" WHEN x <= 82 AND y >= 31 AND y <= 54 THEN "Wet Land" ELSE "Coaster Alley" END as area, COUNT(id) AS users  FROM movs WHERE id IS NOT NULL AND strftime("%d", ts) = "07" AND tag = "check-in" GROUP BY hour, area',
 	function(err, rows){
@@ -182,7 +182,7 @@ restapi.get('/we-h-area-sat', function(req, res){
 		if (err) throw err;
 
 		// Write the object inside a file json
-		fs.writeFile('../data/we-h-area-sat.json', json, 'utf8', function (err) {
+		fs.writeFile('../data/sat-h-area.json', json, 'utf8', function (err) {
 	  		if (err) throw err;	 
 
 	  		//Write a response to the client
@@ -203,7 +203,7 @@ restapi.get('/we-h-area-sat', function(req, res){
 });
 
 // define a entry point to count the number of check-in per area and hour of sunday
-restapi.get('/we-h-area-sun', function(req, res){
+restapi.get('/sun-h-area', function(req, res){
 
 	db.all('SELECT strftime("%H", ts) AS hour, CASE WHEN x <= 50 AND y >= 54 AND y <= 99 THEN "Tundra Land" WHEN x >= 50 AND x <= 70 AND y >= 54 AND y <= 99 THEN "Entry Corridor" WHEN x >= 70 AND x <= 99 AND y >= 54 AND y <= 99 THEN "Kiddie Land" WHEN x >= 70 AND x <= 99 AND y >= 54 AND y <= 99 THEN "Kiddie Land" WHEN x <= 82 AND y >= 31 AND y <= 54 THEN "Wet Land" ELSE "Coaster Alley" END as area, COUNT(id) AS users  FROM movs WHERE id IS NOT NULL AND strftime("%d", ts) = "08" AND tag = "check-in" GROUP BY hour, area',
 	function(err, rows){
@@ -214,7 +214,7 @@ restapi.get('/we-h-area-sun', function(req, res){
 		if (err) throw err;
 
 		// Write the object inside a file json
-		fs.writeFile('../data/we-h-area-sun.json', json, 'utf8', function (err) {
+		fs.writeFile('../data/sun-h-area.json', json, 'utf8', function (err) {
 	  		if (err) throw err;	 
 
 	  		//Write a response to the client

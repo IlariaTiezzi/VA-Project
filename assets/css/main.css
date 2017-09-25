@@ -158,53 +158,53 @@ div#viz {
 }
 /* --- end heatmap --- */
 /* --- end line chart --- */
-div#linechart {
+.cumLineChart {
     width: 100%;
     text-align: center;
 }
 
-div#linechart g.nv-background {
+.cumLineChart g.nv-background {
     fill: rgba(255,255,255,0.5);
 }
 
 /* - axis - */
-div#linechart .nv-indexLine {
+.cumLineChart .nv-indexLine {
     width: 1px;
     fill: #CCC;
 }
 
-div#linechart path.domain {
+.cumLineChart path.domain {
     stroke: #CCC;
 }
 
-div#linechart .tick line {
+.cumLineChart .tick line {
     stroke-width: 1px;
     stroke: #ddd;
 }
 
-div#linechart .zero line {  
+.cumLineChart .zero line {  
   stroke: #666;
 }
 
-div#linechart g.tick, div#linechart g.nv-axisMaxMin {
+.cumLineChart g.tick, .cumLineChart g.nv-axisMaxMin {
     font-size: 12px;
     fill: #666;
     opacity:1;
 }
 
-div#linechart text.nv-axislabel {
+.cumLineChart text.nv-axislabel {
     fill: #0192b5;    
     text-transform: uppercase;
     font-size: 12px;
 }
 /* - end axis - */
 /* - line chart - */
-div#linechart .nvd3 .nv-groups path.nv-line {
+.cumLineChart .nvd3 .nv-groups path.nv-line {
     fill: none;
 }
 
-div#linechart .nvd3.nv-scatter .nv-groups .nv-point.hover,
-div#linechart .nvd3 .nv-groups .nv-point.hover {    
+.cumLineChart .nvd3.nv-scatter .nv-groups .nv-point.hover,
+.cumLineChart .nvd3 .nv-groups .nv-point.hover {    
     stroke-width: 20px;
     stroke-opacity: .5;
     transition: stroke-width 250ms linear;
@@ -219,7 +219,7 @@ div#linechart .nvd3 .nv-groups .nv-point.hover {
     cursor: pointer;
 }
 
-div#linechart .nvd3.nv-legend .disabled circle {
+.cumLineChart .nvd3.nv-legend .disabled circle {
   fill: 0;
 }
 /* - end legend - */

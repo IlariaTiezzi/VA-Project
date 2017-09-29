@@ -1,4 +1,5 @@
-/* --- Text --- */
+/* --- GENERAL --- */
+/* - text - */
 
 .h1, h1 {
     font-size: 25px; 
@@ -18,8 +19,8 @@
     font-size: 16px;    
 }
 
-/* --- end Text --- */
-/* --- main --- */
+/*-- end text - */
+
 body {
     background-color: #F8F8F8;
 }
@@ -51,8 +52,8 @@ footer p {
     font-size: 14px; 
     color: #666;   
 }
-/* --- end main ---*/
-/* --- axis --- */
+/* - end main -*/
+/* - axis - */
 .axis path, .axis line {
     fill: none;
     stroke: #CCC;
@@ -65,8 +66,8 @@ footer p {
   font-family: sans-serif;
   font-size: 11px;
 }
-/* --- end axis --- */
-/* --- nvd3 tooltip --- */
+/* - end axis - */
+/* - nvd3 tooltip - */
 .nvtooltip {
     padding: 10px;
     background: #FFF;
@@ -84,8 +85,28 @@ footer p {
     -moz-transition-delay: 500ms;
     -webkit-transition-delay: 500ms;
 }
-/* --- end nvd3 tooltip --- */
-/* --- viz --- */
+.nvtooltip .x-value, .nvtooltip .y-value {
+    font-weight: normal;
+}
+
+.nvtooltip .key {
+    font-weight: bold;
+}
+
+.nvtooltip td {
+    display: inline-block;
+    margin-left: 5px;
+}
+
+td.legend-color-guide div {
+    border: 1px solid #ddd;
+    height: 15px;
+    width: 15px;
+    border-radius: 50%;
+}
+/* - end nvd3 tooltip - */
+/* --- end GENERAL --- */
+/* --- PARKMAP --- */
 div#viz {
     margin: 0 auto;
     text-align: center;
@@ -120,13 +141,13 @@ div#viz {
     text-transform: uppercase; 
 }
 
-/* --- end viz --- */
-/* --- multibar --- */
+/* --- end PARKMAP --- */
+/* --- MULTIBAR --- */
 #multibar .tick text {
     text-transform: uppercase;    
 }
-/*--- end multibar --- */
-/* --- heatmap --- */
+/*--- end MULTIBAR --- */
+/* --- HEATMAP --- */
 .heatmap {
     margin: 0 auto;
     text-align: center;
@@ -156,8 +177,8 @@ div#viz {
 #heatmap-tooltip.hidden, #heatmap-tooltip-fri.hidden, #heatmap-tooltip-sat.hidden, #heatmap-tooltip-sun.hidden  {
     display: none;
 }
-/* --- end heatmap --- */
-/* --- end line chart --- */
+/* --- end HEATMAP --- */
+/* --- LINE CHART --- */
 .cumLineChart {
     width: 100%;
     text-align: center;
@@ -198,7 +219,7 @@ div#viz {
     font-size: 12px;
 }
 /* - end axis - */
-/* - line chart - */
+/* - line - */
 .cumLineChart .nvd3 .nv-groups path.nv-line {
     fill: none;
 }
@@ -212,7 +233,7 @@ div#viz {
     -webkit-transition: stroke-width 250ms linear;  
 }
 
-/* - end line chart - */
+/* - end line - */
 /* - legend - */
 .nvd3.nv-legend circle {
     stroke-width: 2px;
@@ -223,6 +244,61 @@ div#viz {
   fill: 0;
 }
 /* - end legend - */
+/* --- end LINE CHART --- */
+/* --- BUBBLE CHART --- */
+#bubblechart {
+    width: 100%;
+    text-align: center;
+}
 
+#bubblechart g.nv-point-paths {
+    opacity:0;
+}
 
-/* --- end line chart --- */
+#bubblechart .nvd3 .nv-groups .nv-point.hover {
+    stroke-width: 20px;
+    stroke-opacity: .5;
+}
+
+#bubblechart .nvd3 .nv-scatter .nv-point.hover {
+    fill-opacity: 1;
+}
+
+#bubblechart .nv-noninteractive {
+    pointer-events: none;
+}
+
+#bubblechart .nv-distx, .nv-disty {
+    pointer-events: none;
+}
+
+/* - axis - */
+#bubblechart .nv-indexLine {
+    width: 1px;
+    fill: #CCC;
+}
+
+#bubblechart path.domain {
+    stroke: #CCC;
+}
+
+#bubblechart .tick line {
+    stroke-width: 1px;
+    stroke: #eee;
+}
+
+#bubblechart g.tick, #bubblechart g.nv-axisMaxMin {
+    font-size: 12px;
+    fill: #666;
+    opacity:1;
+}
+
+#bubblechart text.nv-axislabel {
+    fill: #0192b5;    
+    text-transform: uppercase;
+    font-size: 12px;
+}
+
+/* - end axis - */
+
+/* --- end BUBBLE CHART --- */

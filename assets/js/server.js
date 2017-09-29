@@ -298,6 +298,39 @@ restapi.get('/we-cf-checkin', function(req, res){
 	});
 });
 
+// define a entry point to count check-ins and movements per id
+restapi.get('/we-checkin-mov-id', function(req, res){
+
+	db.all('SELECT id, COUNT(CASE WHEN tag="check-in" THEN 1 END) as "checkin", COUNT(CASE WHEN tag="movement" THEN 1 END) as "movements" FROM movs WHERE id IS NOT NULL GROUP BY id ORDER BY id, checkin ASC',
+	function(err, rows){
+		
+		// Create the json objects from the result sql
+		var json = JSON.stringify(rows);
+		
+		if (err) throw err;
+
+		// Write the object inside a file json
+		fs.writeFile('../data/we-checkin-mov-id.json', json, 'utf8', function (err) {
+	  		if (err) throw err;	 
+
+	  		//Write a response to the client
+	  		res.writeHead(200, {'Content-Type': 'text/html'});
+	  		res.write('<h1>VAST Challenge 2015 - MC1</h1>');
+	  		res.write('<h2>Project of Visual Analytics</h2>');
+	  		res.write('<p>File json saved successfully!</p>');
+	  		res.write('<p>You can see the result here: <a href="http://localhost/va_project/">VAST PROJECT</a></p>');
+
+	  		//Write a response to the console
+	  		console.log('File json saved successfully!');
+
+	  		// End the response  		
+	  		res.end();
+	  		
+		});		 			
+	});
+});
+
+
 restapi.listen(3000);
 console.log("Listening on port 3000...");
 

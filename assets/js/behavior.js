@@ -508,7 +508,7 @@ d3.json("assets/data/we-mov.json",
         // Create a SVG element inside the DIV with ID #linechart        
         var svg = d3.select("#linechart")
             .append("svg")
-            .attr("width", 600)
+            .attr("width", "95%")
             .attr("height", 600);        
 
         // Add a cumulative line chart

@@ -129,33 +129,82 @@ d3.json("assets/data/we-groups.json",
 			.attr("r", function(d){return scaleCount(d.users);})			
 			.attr("fill", colors[3])
 			.attr("opacity", "0.8")
-			.on("mouseover", function(d, i){
-        		// Get this cells x/y values, then augment for the tooltip
-        		var xPosition = parseFloat(d3.select(this).attr("cx"))+250;
-        		var yPosition = parseFloat(d3.select(this).attr("cy"))+250;
+			.on("mouseover", function(d){
+                // Add the stroke
+                d3.select(this)
+                    .style("stroke", colors[1])
+                    .style("stroke-width", 2);
+                // Show the tooltip
+                circleMouseOver(d); 
+            })
+            .on("mouseout", function(){
+                // Remove the stroke
+                d3.select(this).style("stroke", "none"); 
+                // Hide the tooltip
+                circleMouseOut();   
+                
+            });
 
-        		// Update the tooltip position
-        		var labelCells = d3.select("#viz-tooltip")
-        			.style("left", xPosition + "px")
-        			.style("top", yPosition + "px");
+            // Define the group to content the box and related text 
+        var gMapRect = svg.append('g'); 
+     
+        // Create a rect for each data entry 
+        var mapRect = gMapRect.selectAll("rect") 
+            .data(data) 
+            .enter() 
+            .append("rect") 
+            .attr("id", function(d,i){return "mapRect" + i;}) 
+            .attr("class", "mapRect") 
+            .attr("x", function(d){return xScale(d.x) + 5;}) 
+            .attr("y", function(d){return yScale(d.y) + 5;}) 
+            .attr("dx", "20") 
+            .attr("width", "120") 
+            .attr("height", "70") 
+            .attr("rx", 5) 
+            .attr("ry", 5) 
+            .style("fill", "#FFF") 
+            .attr("stroke", "#CCC") 
+            .attr("stroke-width", "1px")
+            .style("display", "none"); 
 
-        		// Update the value of the first paragraph
-        		var labelGroup = d3.select("#viz-group")
-        			.text("Group ID " + i);
+        // Create a text for each data entry inside the rectangle 
+        var labelRect = gMapRect.selectAll("text") 
+            .data(data) 
+            .enter() 
+            .append("text")           
+            .attr("class", "labelRect") 
+            .attr("text-anchor", "left") 
+            .attr("font-family","sans-serif") 
+            .attr("font-size","12px") 
+            .attr("fill","#666") 
+            .style("display", "none"); 
 
-        		//  Update the value of the second paragraph
-        		var labelValue = d3.select("#viz-value")
-        			.text(formatSuffix(d.users))
-        			.style("font-size", "20px")
-        			.style("font-weight", "bold");
+        // Define the first line of text  
+		var textTspan1 = labelRect.append("tspan")       
+			.attr("x", function(d){return xScale(d.x)+15;}) 
+			.attr("y", function(d){return yScale(d.y)+35;}) 
+			.text(function(d,i){ return 'Group Id: ' + i;}) 
+			.attr("font-weight", "bold"); 
 
-        		// Show the tooltip
-        		d3.select("#viz-tooltip").classed("hidden", false);
-        	})
-        	.on("mouseout", function(){
-        		// Hide the tooltip
-        		d3.select("#viz-tooltip").classed("hidden", true);
-        	});			
+		// Define the second line of text 
+		var textTspan2 = labelRect.append("tspan")       
+			.attr("x", function(d){return xScale(d.x)+15;}) 
+			.attr("y", function(d){return yScale(d.y)+55;}) 
+			.text(function(d){return "Members: " + d.users }); 
+
+        // Define the event for the mouse over the circle 
+        var circleMouseOver = function(d){       
+            var tempRect = mapRect.filter( function(e){ return (e.x == d.x) && (e.y == d.y); }); 
+            var tempText = labelRect.filter( function(e){ return (e.x == d.x) && (e.y == d.y); }); 
+            tempRect.style("display", "block"); 
+            tempText.style("display", "block"); 
+        } 
+
+        // Define the event for the mouse out the circle 
+        var circleMouseOut = function() { 
+            mapRect.style("display", "none"); 
+            labelRect.style("display", "none"); 
+        } 		
 	}	
 );
 

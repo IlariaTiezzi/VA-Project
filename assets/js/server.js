@@ -301,7 +301,7 @@ restapi.get('/we-cf-checkin', function(req, res){
 // define a entry point to count check-ins and movements per id
 restapi.get('/we-checkin-mov-id', function(req, res){
 
-	db.all('SELECT id, COUNT(CASE WHEN tag="check-in" THEN 1 END) as "checkin", COUNT(CASE WHEN tag="movement" THEN 1 END) as "movements" FROM movs WHERE id IS NOT NULL GROUP BY id ORDER BY id, checkin ASC',
+	db.all('SELECT id, COUNT(CASE WHEN tag="check-in" AND x > 20 AND x < 35 AND y > 30 AND y < 40 THEN 1 END) as "checkin_cf", COUNT(CASE WHEN tag="check-in" THEN 1 END) as "checkin_tot", COUNT(CASE WHEN tag="movement" THEN 1 END) as "movements" FROM movs WHERE id IS NOT NULL GROUP BY id ORDER BY id ASC',
 	function(err, rows){
 		
 		// Create the json objects from the result sql
@@ -328,6 +328,57 @@ restapi.get('/we-checkin-mov-id', function(req, res){
 	  		
 		});		 			
 	});
+});
+
+// define a entry point of a specified user to identify the time and check-in areas
+restapi.get('/we-area-id/:id', function(req, res){
+	var id = req.params.id;
+	
+	if(id){
+		db.all('SELECT ts, CASE WHEN x > 20 AND x < 35 AND y > 30 AND y < 40 THEN "Creighton Pavilion" WHEN x <= 50 AND y >= 54 AND y <= 99 THEN "Tundra Land" WHEN x >= 50 AND x <= 70 AND y >= 54 AND y <= 99 THEN "Entry Corridor" WHEN x >= 70 AND x <= 99 AND y >= 54 AND y <= 99 THEN "Kiddie Land" WHEN x >= 70 AND x <= 99 AND y >= 54 AND y <= 99 THEN "Kiddie Land" WHEN x <= 82 AND y >= 31 AND y <= 54 THEN "Wet Land" ELSE "Coaster Alley" END as area FROM movs WHERE id=? and tag="check-in"', id, function(err, rows){	
+		
+			if (err) throw err;
+
+			res.json(rows);
+		});
+	}	
+});
+
+// define a entry point to retrieve the movements of a specified user
+restapi.get('/we-id/:id', function(req, res){
+
+	var id = req.params.id;
+	
+	if(id){
+		db.all('SELECT strftime("%H:%M", ts) AS hour, COUNT(*) AS movements, tag, x, y FROM movs WHERE id=? GROUP BY x, y ORDER BY hour ASC', id,
+	
+		function(err, rows){
+			
+			// Create the json objects from the result sql
+			var json = JSON.stringify(rows);
+			
+			if (err) throw err;
+
+			// Write the object inside a file json
+			fs.writeFile('../data/we-id.json', json, 'utf8', function (err) {
+		  		if (err) throw err;	 
+
+		  		//Write a response to the client
+		  		res.writeHead(200, {'Content-Type': 'text/html'});
+		  		res.write('<h1>VAST Challenge 2015 - MC1</h1>');
+		  		res.write('<h2>Project of Visual Analytics</h2>');
+		  		res.write('<p>File json saved successfully!</p>');
+		  		res.write('<p>You can see the result here: <a href="http://localhost/va_project/">VAST PROJECT</a></p>');
+
+		  		//Write a response to the console
+		  		console.log('File json saved successfully!');
+
+		  		// End the response  		
+		  		res.end();
+		  		
+			});		 			
+		});
+	}
 });
 
 

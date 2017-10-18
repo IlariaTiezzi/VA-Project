@@ -2,7 +2,8 @@
 var w = "95%";
 var h = 600;
 var c20c = d3.scale.category20c().range();
-var colors = [c20c[3],c20c[2], c20c[1], c20c[0]];
+var blue20c = [c20c[3],c20c[2], c20c[1], c20c[0]];
+var colors10 = d3.scale.category10().range();
 var formatSuffix = d3.format(".2s");
 var searchCheckin = [];
 
@@ -11,8 +12,6 @@ d3.json("assets/data/we-cf-checkin.json",
 
     function(error, data) {
         if (error) {console.log(error);} 
-
-        var setColor = [colors[0],colors[2], colors[3]];
 
         // Set the name of the days
         var setDay = function(d){
@@ -45,7 +44,7 @@ d3.json("assets/data/we-cf-checkin.json",
         var chart = nv.models.cumulativeLineChart()            
             .x(function(d) { return d[0] })
             .y(function(d) { return d[1]/100}) // 100% is 1.00
-            .color(setColor)          // Select the range of colors                   
+            .color(colors10)          // Select the range of colors                  
             .showControls(false)    // Don't show the controls
             .showLegend(true)       //Show the legend, allowing users to turn on/off line series.
             .showYAxis(true)        //Show the y-axis
@@ -108,7 +107,7 @@ d3.json("assets/data/we-checkin-mov-id.json",
                 .showYAxis(true)        //Show the y-axis
                 .showXAxis(true)        //Show the x-axis       
                 .duration(350)          // Define the duration of the transformation
-                .color(colors);         // Define the range of colours
+                .color(blue20c);         // Define the range of colors
 
             // Define the label and displays all data in the x axis 
             chart.xAxis
@@ -289,14 +288,14 @@ d3.json("assets/data/we-id.json",
             .attr("cy", function(d){return yScale(d.y);})
             .attr("r", function(d){return rScale(d.movements);})            
             .attr("fill", function(d){
-                if (d.tag === "check-in") return colors[3];
-                else return colors[2];
+                if (d.tag === "check-in") return blue20c[3];
+                else return blue20c[2];
             })
             .attr("opacity", "0.8")
             .on("mouseover", function(d){
                 // Add the stroke
                 d3.select(this)
-                    .style("stroke", colors[3])
+                    .style("stroke", blue20c[3])
                     .style("stroke-width", 2);
                 // Show the tooltip
                 circleMouseOver(d); 

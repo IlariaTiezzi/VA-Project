@@ -1,7 +1,8 @@
 
 // Global variables
 var c20c = d3.scale.category20c().range();
-var colors = [c20c[3],c20c[2], c20c[1], c20c[0]];
+var blue20c = [c20c[3],c20c[2], c20c[1], c20c[0]];
+var colors10 = d3.scale.category10().range();
 var formatSuffix = d3.format(".2s");
 
 // Create a heatmap  to display the number of check-in per hours of the friday
@@ -62,7 +63,7 @@ d3.json("assets/data/fri-h-area.json",
 
         var colorScale = d3.scale.quantile()
         	.domain(extentValue)
-        	.range(colors); 
+        	.range(blue20c); 
 
         // Define the axis considering the scale
     	var xAxis = d3.svg.axis()
@@ -145,7 +146,7 @@ d3.json("assets/data/fri-h-area.json",
             .attr("y", 510)
             .attr("width", w/4)
             .attr("height", 10)
-            .style("fill", function(d, i) { return colors[i];});
+            .style("fill", function(d, i) { return blue20c[i];});
 
         // Add the text by defining the format
         legend.append("text")
@@ -219,7 +220,7 @@ d3.json("assets/data/sat-h-area.json",
 
         var colorScale = d3.scale.quantile()
             .domain(extentValue)
-            .range(colors); 
+            .range(blue20c); 
 
         // Define the axis considering the scale
         var xAxis = d3.svg.axis()
@@ -302,7 +303,7 @@ d3.json("assets/data/sat-h-area.json",
             .attr("y", 510)
             .attr("width", w/4)
             .attr("height", 10)
-            .style("fill", function(d, i) { return colors[i];});
+            .style("fill", function(d, i) { return blue20c[i];});
 
         // Add the text by defining the format
         legend.append("text")
@@ -376,7 +377,7 @@ d3.json("assets/data/sun-h-area.json",
 
         var colorScale = d3.scale.quantile()
             .domain(extentValue)
-            .range(colors); 
+            .range(blue20c); 
 
         // Define the axis considering the scale
         var xAxis = d3.svg.axis()
@@ -459,7 +460,7 @@ d3.json("assets/data/sun-h-area.json",
             .attr("y", 510)
             .attr("width", w/4)
             .attr("height", 10)
-            .style("fill", function(d, i) { return colors[i];});
+            .style("fill", function(d, i) { return blue20c[i];});
 
         // Add the text by defining the format
         legend.append("text")
@@ -479,9 +480,7 @@ d3.json("assets/data/sun-h-area.json",
 d3.json("assets/data/we-mov.json", 
 
     function(error, data) {
-        if (error) {console.log(error);} 
-
-        var setColor = [colors[0],colors[2], colors[3]];
+        if (error) {console.log(error);}         
 
         // Set the name of the days
         var setDay = function(d){
@@ -516,7 +515,7 @@ d3.json("assets/data/we-mov.json",
         var chart = nv.models.cumulativeLineChart()            
             .x(function(d) { return d[0] })
             .y(function(d) { return d[1]/100}) // 100% is 1.00
-            .color(setColor)          // Select the range of colors                   
+            .color(colors10)          // Select the range of colors                   
             .showControls(false)    // Don't show the controls
             .showLegend(true)       //Show the legend, allowing users to turn on/off line series.
             .showYAxis(true)        //Show the y-axis

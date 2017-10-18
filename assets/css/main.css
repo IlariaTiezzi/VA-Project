@@ -238,7 +238,7 @@ div#viz {
 }
 
 .bubbleChart .nvd3 .nv-groups .nv-point.hover {
-    stroke-width: 20px;
+    stroke-width: 10px;
     stroke-opacity: .5;
 }
 

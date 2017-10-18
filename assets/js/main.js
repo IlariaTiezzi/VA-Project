@@ -1,6 +1,7 @@
 // Global variables
 var c20c = d3.scale.category20c().range();
-var colors = [c20c[3],c20c[2], c20c[1], c20c[0]];
+var blue20c = [c20c[3],c20c[2], c20c[1], c20c[0]];
+var colors10 = d3.scale.category10().range();
 var formatSuffix = d3.format(".2s");
 
 // Create a chart to see the size and position of the group of users in the park map
@@ -127,12 +128,12 @@ d3.json("assets/data/we-groups.json",
 			.attr("cx", function(d){return xScale(d.x);})
 			.attr("cy", function(d){return yScale(d.y);})
 			.attr("r", function(d){return scaleCount(d.users);})			
-			.attr("fill", colors[3])
+			.attr("fill", blue20c[3])
 			.attr("opacity", "0.8")
 			.on("mouseover", function(d){
                 // Add the stroke
                 d3.select(this)
-                    .style("stroke", colors[1])
+                    .style("stroke", blue20c[1])
                     .style("stroke-width", 2);
                 // Show the tooltip
                 circleMouseOver(d); 
@@ -251,7 +252,7 @@ d3.json("assets/data/we-area.json",
 			      .rotateLabels(0)     	//Angle to rotate x-axis labels.
 			      .showControls(true)	//Allow user to switch between 'Grouped' and 'Stacked' mode.
 			      .groupSpacing(0.1)	//Distance between each group of bars.
-			      .color(colors); 		// Configure the range of colors.      
+			      .color(colors10); 		// Configure the range of colors.      
 		    
 		    //chart.xAxis;
 
@@ -282,7 +283,6 @@ d3.json("assets/data/we-h-day.json",
 		var margin = 30;
 		var w = 210;
 		var h = 470;
-		var colors = ["#c6dbef", "#9ecae1", "#6baed6", "#3182bd"];
 		var formatSuffix = d3.format(".2s");
 		var extentValue = d3.extent(data, function(d){ return d.users});	
 
@@ -331,7 +331,7 @@ d3.json("assets/data/we-h-day.json",
 
         var colorScale = d3.scale.quantile()
         	.domain(extentValue)
-        	.range(colors); 
+        	.range(blue20c); 
 
         // Define the axis considering the scale
     	var xAxis = d3.svg.axis()
@@ -414,7 +414,7 @@ d3.json("assets/data/we-h-day.json",
             .attr("y", 510)
             .attr("width", w/4)
             .attr("height", 10)
-            .style("fill", function(d, i) { return colors[i];});
+            .style("fill", function(d, i) { return blue20c[i];});
 
         // Add the text by defining the format
         legend.append("text")
@@ -436,8 +436,6 @@ d3.json("assets/data/we-checkin-day.json",
 
 	function(error, data) {
 		if (error) {console.log(error);} 
-
-		var colors = ["#9ecae1", "#6baed6", "#3182bd"];
 
 		// Create a SVG element inside the DIV with ID #multibar		
 		var svg = d3.select("#donutchart")
@@ -465,7 +463,7 @@ d3.json("assets/data/we-checkin-day.json",
 				.labelType("percent") //Configure what type of data to show in the label. Can be "key", "value" or "percent"
 				.donut(true)          //Turn on Donut mode. Makes pie chart look tasty!
 				.donutRatio(0.35)     //Configure how big you want the donut hole size to be.
-				.color(colors);  // Configure the range of colors.
+				.color(colors10);  // Configure the range of colors.
 			  
 			// Define the format of values in the tooltip
 			chart.tooltip.valueFormatter(d3.format('.2s'));

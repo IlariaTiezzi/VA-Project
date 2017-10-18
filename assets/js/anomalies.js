@@ -1,17 +1,17 @@
 // Global variables
-var w = "95%";
-var h = 600;
 var c20c = d3.scale.category20c().range();
 var blue20c = [c20c[3],c20c[2], c20c[1], c20c[0]];
 var colors10 = d3.scale.category10().range();
 var formatSuffix = d3.format(".2s");
-var searchCheckin = [];
 
 // Create a cumulative line chart to compare the number of check-ins per hours of the day in Creighton Pavilion
 d3.json("assets/data/we-cf-checkin.json", 
 
     function(error, data) {
         if (error) {console.log(error);} 
+
+        var w = "95%";
+        var h = 600;
 
         // Set the name of the days
         var setDay = function(d){
@@ -81,6 +81,9 @@ d3.json("assets/data/we-checkin-mov-id.json",
 
     function(error, data) {
         if (error) {console.log(error);} 
+
+        var w = "95%";
+        var h = 600;
 
         // Filter data with check-in greater than 0
         var filterData = data.filter(function(d){return d.checkin_cf > 0;})

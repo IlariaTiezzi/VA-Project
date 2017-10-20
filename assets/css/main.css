@@ -158,6 +158,14 @@ div#viz {
 #heatmap-tooltip.hidden, #heatmap-tooltip-fri.hidden, #heatmap-tooltip-sat.hidden, #heatmap-tooltip-sun.hidden  {
     display: none;
 }
+
+#legend-heatmaps {
+    float: left;
+    margin-top: 40px;
+    margin-left: 30px;
+    color: #666;
+    font-size: 11px;
+}
 /* --- end HEATMAP --- */
 /* --- LINE CHART --- */
 .cumLineChart {

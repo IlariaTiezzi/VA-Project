@@ -283,7 +283,6 @@ d3.json("assets/data/we-h-day.json",
 		var margin = 30;
 		var w = 210;
 		var h = 470;
-		var formatSuffix = d3.format(".2s");
 		var extentValue = d3.extent(data, function(d){ return d.users});	
 
 		// Set the name of the days

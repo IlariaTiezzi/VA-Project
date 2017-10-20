@@ -89,8 +89,7 @@ d3.json("assets/data/we-checkin-mov-id.json",
         var filterData = data.filter(function(d){return d.checkin_cf > 0;})
   
         // Define a new array with filtered data
-        var dataset = filterData
-            .map(function(d) {
+        var dataset = filterData.map(function(d) {
                 return {
                     key: d.id,
                     values: [{x: d.movements, y: d.checkin_tot, size: d.movements, shape: 'circle', checkin_cf: d.checkin_cf}]

@@ -139,7 +139,7 @@ d3.json("assets/data/we-checkin-mov-id.json",
                     "<tbody>" +
                         "<tr><td class='x-value'><strong>Moviments: </strong>" + d.point.x + "</td></tr>" +
                         "<tr><td class='x-value'><strong>Check-in: </strong>" + d.point.y + "</td></tr>"+
-                        "<tr><td><strong>Check-in C.F.: </strong>" + d.point.checkin_cf + "</td></tr>"+
+                        "<tr><td><strong>Check-in C.P.: </strong>" + d.point.checkin_cf + "</td></tr>"+
                     "</tbody>";
 
                 return "<table>" + header + body + "</table>";                    

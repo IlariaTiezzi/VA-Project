@@ -436,7 +436,7 @@ d3.json("assets/data/we-checkin-day.json",
 	function(error, data) {
 		if (error) {console.log(error);} 
 
-		// Create a SVG element inside the DIV with ID #multibar		
+		// Create a SVG element inside the DIV with ID #donutchart		
 		var svg = d3.select("#donutchart")
 			.append("svg")
 			.attr("width", 250)

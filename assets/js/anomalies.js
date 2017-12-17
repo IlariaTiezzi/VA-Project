@@ -255,9 +255,9 @@ d3.json("assets/data/we-id.json",
             .domain ([0,100])
             .range([h, 0]);
 
-        var rScale = d3.scale.linear()
+        var rScale = d3.scale.pow().exponent(2)
             .domain ([0,10])
-            .range([0, 20]);
+            .range([2, 50]);
 
         // Define the axis considering the scale
         var xAxis = d3.svg.axis()

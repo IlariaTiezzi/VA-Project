@@ -93,9 +93,9 @@ d3.json("assets/data/we-groups.json",
 			.domain ([0,100])
 			.range([h, 0]);
 
-		var scaleCount = d3.scale.linear()
+		var scaleCount = d3.scale.pow().exponent(2)
 			.domain ([0,150000])
-			.range([0, 15]);
+			.range([2, 25]);
 		
 		// Define the axis considering the scale
 		var xAxis = d3.svg.axis()
